@@ -10,7 +10,8 @@ add_library(vidar
 
 target_include_directories(vidar
     PUBLIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>
 )
 
 target_compile_features(vidar
@@ -28,7 +29,9 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     )
 endif()
 
-enable_testing()
+if(PROJECT_IS_TOP_LEVEL)
+    enable_testing()
+endif()
 
 FetchContent_Declare(
   googletest
@@ -38,15 +41,17 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-add_executable(vidar_tests
-    tests/test_utils.cpp
-)
+if(PROJECT_IS_TOP_LEVEL)
+    add_executable(vidar_tests
+        tests/test_utils.cpp
+    )
 
-target_link_libraries(vidar_tests
-    PRIVATE
-        vidar
-        GTest::gtest_main
-)
+    target_link_libraries(vidar_tests
+        PRIVATE
+            vidar
+            GTest::gtest_main
+    )
 
-include(GoogleTest)
-gtest_discover_tests(vidar_tests)
+    include(GoogleTest)
+    gtest_discover_tests(vidar_tests)
+endif()
