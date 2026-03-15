@@ -1,6 +1,6 @@
 #include "utils.hpp"
 
-namespace vidar {
+namespace vidar::utils {
 
 std::string greet(const std::string& name) {
     return "Hello, " + name + "!";
