@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "utils.hpp"
+#include <vidar/utils.hpp>
 
 TEST(VidarUpdateTest, UpdatesAndReturnsTrueWhenValueChanges) {
     namespace vu = vidar::utils;
