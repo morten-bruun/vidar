@@ -1,4 +1,5 @@
-#pragma once
+#ifndef VIDAR_UTILS_HPP
+#define VIDAR_UTILS_HPP
 
 #include <string>
 
@@ -20,4 +21,30 @@ bool update(T& variable, const T& new_value) {
     return false;
 }
 
+/**
+ * Checks if a value is within a specified closedinterval [lower_bound, upper_bound].
+ * @param value The value to check.
+ * @param lower_bound The lower bound of the interval.
+ * @param upper_bound The upper bound of the interval.
+ * @return true if the value is within the interval, false otherwise.
+ */
+template<typename T>
+bool in_interval(const T& value, const T& lower_bound, const T& upper_bound) {
+    return lower_bound <= value && value <= upper_bound;
+}
+
+/**
+ * Checks if a value is within a specified half open interval [lower_bound, upper_bound).
+ * @param value The value to check.
+ * @param lower_bound The lower bound of the interval.
+ * @param upper_bound The upper bound of the interval.
+ * @return true if the value is within the interval, false otherwise.
+ */
+template<typename T>
+bool in_interval_open(const T& value, const T& lower_bound, const T& upper_bound) {
+    return lower_bound <= value && value < upper_bound;
+}
+
 } // namespace vidar::utils
+
+#endif // VIDAR_UTILS_HPP
